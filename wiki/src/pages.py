@@ -758,7 +758,7 @@ def gen_enemies() -> str:
             drop_table=table(["Item", "Chance", "Qty"], drop_rows) if drop_rows else "_No drops._",
         ))
 
-    return get_template("combat/enemies").format(enemy_sections="\n\n".join(sections))
+    return get_template("combat/enemies").format(boss_link=link("bosses"), enemy_sections="\n\n".join(sections))
 
 
 def gen_spells() -> str:

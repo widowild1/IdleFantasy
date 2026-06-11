@@ -2,12 +2,12 @@
 from __future__ import annotations
 
 import re
-from pathlib import Path
 
 import markdown as md_lib
 from jinja2 import Environment, FileSystemLoader
 
 from wiki.src import WIKI_ROOT
+from wiki.src.page_hierarchy import PageHierarchy
 from wiki.src.pages import get_pages, PAGE_DIRECTORY, PAGE_HIERARCHY
 
 HTML_TEMPLATES = WIKI_ROOT / "html_templates"
@@ -77,7 +77,7 @@ def _md_to_html(text: str) -> str:
 # Sidebar nav builder
 # ---------------------------------------------------------------------------
 
-def _build_nav(active_page_id: str | None, items=None) -> str:
+def _build_nav(active_page_id: str | None, items: PageHierarchy | None = None) -> str:
     if items is None:
         items = PAGE_HIERARCHY
     lines = ["<ul>"]
@@ -88,12 +88,10 @@ def _build_nav(active_page_id: str | None, items=None) -> str:
             css = ' class="active"' if item == active_page_id else ""
             lines.append(f'<li><a href="{url}"{css}>{page.title}</a></li>')
         else:
-            section_name, children = item
-            child_list = (children,) if isinstance(children, str) else children
-            inner = _build_nav(active_page_id, child_list)
+            inner = _build_nav(active_page_id, item)
             lines.append(
                 f'<li class="nav-section">'
-                f'<span class="nav-label">{section_name}</span>'
+                f'<span class="nav-label">{item.name}</span>'
                 f'{inner}</li>'
             )
     lines.append("</ul>")

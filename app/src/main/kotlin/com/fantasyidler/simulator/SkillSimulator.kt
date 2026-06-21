@@ -59,6 +59,7 @@ object SkillSimulator {
     ): Result {
         var currentXp = startXp
         val frames = mutableListOf<SessionFrame>()
+        var oreAccumulator = 0f
 
         for (minute in 1..60) {
             val xpBefore = currentXp
@@ -70,8 +71,9 @@ object SkillSimulator {
             currentXp += xpGain
             val levelAfter = XpTable.levelForXp(currentXp)
 
-            // Ore quantity this minute
-            val oreQty = max(1, toolEfficiency.roundToInt())
+            oreAccumulator += toolEfficiency
+            val oreQty = oreAccumulator.toInt().coerceAtLeast(1)
+            oreAccumulator -= oreQty
             val items = mutableMapOf(oreKey to oreQty)
 
             // Bonus gem rolls — one independent roll per ore mined per gem type
@@ -125,6 +127,7 @@ object SkillSimulator {
     ): Result {
         var currentXp = startXp
         val frames = mutableListOf<SessionFrame>()
+        var logAccumulator = 0f
 
         for (minute in 1..60) {
             val xpBefore = currentXp
@@ -136,7 +139,9 @@ object SkillSimulator {
             currentXp += xpGain
             val levelAfter = XpTable.levelForXp(currentXp)
 
-            val logQty = max(1, toolEfficiency.roundToInt())
+            logAccumulator += toolEfficiency
+            val logQty = logAccumulator.toInt().coerceAtLeast(1)
+            logAccumulator -= logQty
             val items = mutableMapOf(treeData.logName to logQty)
             if (petDropKey != null && petDropChance > 0.0 && random.nextDouble() < petDropChance) {
                 items[petDropKey] = 1
@@ -178,6 +183,7 @@ object SkillSimulator {
     ): Result {
         var currentXp = startXp
         val frames = mutableListOf<SessionFrame>()
+        var fishAccumulator = 0f
 
         for (minute in 1..60) {
             val xpBefore    = currentXp
@@ -189,7 +195,9 @@ object SkillSimulator {
             currentXp += xpGain
             val levelAfter = XpTable.levelForXp(currentXp)
 
-            val fishQty = max(1, rodEfficiency.roundToInt())
+            fishAccumulator += rodEfficiency
+            val fishQty = fishAccumulator.toInt().coerceAtLeast(1)
+            fishAccumulator -= fishQty
             val items = mutableMapOf<String, Int>()
             if (fishingSkillData != null && random.nextDouble() > 0.8) {
                 val dropTable = getTierData(fishingSkillData.dropTables, levelBefore)

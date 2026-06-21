@@ -111,7 +111,7 @@ class GuildDetailViewModel @Inject constructor(
             allCurrentLevelQuestsDone = allCurrentLevelQuestsDone,
             questGateBlocked          = questGateBlocked,
             inventory                 = inventory,
-            hideCompleted             = extra.hideCompleted,
+            hideCompleted             = flags.hideCompletedQuests,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), GuildDetailUiState(guildKey = guild))
 

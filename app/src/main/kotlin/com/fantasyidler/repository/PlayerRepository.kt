@@ -826,15 +826,23 @@ class PlayerRepository @Inject constructor(
     }
 
 
-    /** One-time migration: seeds seenItemKeys from current inventory + equipped for existing players. */
+    /** Seeds seenItemKeys from current inventory + equipped; always ensures starting items are present. */
     suspend fun migrateSeenItems() {
         val player = getOrCreatePlayer()
         val flags: PlayerFlags = json.decodeFromString(player.flags)
-        if (flags.seenItemKeys.isNotEmpty()) return
+        val startingItems = setOf("bronze_pickaxe", "bronze_axe", "bronze_fishing_rod", "bronze_boots")
+        if (flags.seenItemKeys.isNotEmpty()) {
+            val missing = startingItems - flags.seenItemKeys
+            if (missing.isNotEmpty()) {
+                playerDao.upsert(player.copy(
+                    flags = json.encode<PlayerFlags>(flags.copy(seenItemKeys = flags.seenItemKeys + missing))
+                ))
+            }
+            return
+        }
         val inventory: Map<String, Int> = json.decodeFromString(player.inventory)
         val equipped: Map<String, String?> = json.decodeFromString(player.equipped)
-        val allCurrentKeys = inventory.keys + equipped.values.filterNotNull()
-        if (allCurrentKeys.isEmpty()) return
+        val allCurrentKeys = inventory.keys + equipped.values.filterNotNull() + startingItems
         playerDao.upsert(player.copy(
             flags = json.encode<PlayerFlags>(flags.copy(seenItemKeys = allCurrentKeys.toSet()))
         ))

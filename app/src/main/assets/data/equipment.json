@@ -154,7 +154,8 @@
     "attack_bonus": 10,
     "strength_bonus": 10,
     "defense_bonus": 0,
-    "requirements": {}
+    "requirements": {},
+    "two_handed": true
   },
   "bronze_warhammer": {
     "name": "bronze_warhammer",
@@ -215,7 +216,8 @@
     "defense_bonus": 0,
     "requirements": {
       "attack": 10
-    }
+    },
+    "two_handed": true
   },
   "iron_warhammer": {
     "name": "iron_warhammer",
@@ -280,7 +282,8 @@
     "defense_bonus": 0,
     "requirements": {
       "attack": 20
-    }
+    },
+    "two_handed": true
   },
   "steel_warhammer": {
     "name": "steel_warhammer",
@@ -371,7 +374,8 @@
     "defense_bonus": 0,
     "requirements": {
       "attack": 30
-    }
+    },
+    "two_handed": true
   },
   "mithril_warhammer": {
     "name": "mithril_warhammer",
@@ -462,7 +466,8 @@
     "defense_bonus": 0,
     "requirements": {
       "attack": 40
-    }
+    },
+    "two_handed": true
   },
   "adamantite_warhammer": {
     "name": "adamantite_warhammer",
@@ -579,7 +584,8 @@
     "defense_bonus": 0,
     "requirements": {
       "attack": 50
-    }
+    },
+    "two_handed": true
   },
   "runite_warhammer": {
     "name": "runite_warhammer",

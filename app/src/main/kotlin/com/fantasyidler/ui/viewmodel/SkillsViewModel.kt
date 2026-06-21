@@ -270,6 +270,7 @@ class SkillsViewModel @Inject constructor(
         val levels: Map<String, Int>  = json.decodeFromString(player.skillLevels)
         val xpMap:  Map<String, Long> = json.decodeFromString(player.skillXp)
         val equipped: Map<String, String?> = json.decodeFromString(player.equipped)
+        val flags: PlayerFlags = json.decodeFromString(player.flags)
         val (petKey, petChance) = petDropParams(Skills.MINING)
 
         SkillSimulator.simulateMining(
@@ -278,6 +279,7 @@ class SkillsViewModel @Inject constructor(
             gems             = gameData.gems,
             startXp          = xpMap[Skills.MINING] ?: 0L,
             agilityLevel     = levels[Skills.AGILITY] ?: 1,
+            agilityPrestige  = flags.skillPrestige[Skills.AGILITY] ?: 0,
             petBoostPct      = petBoostFor(player.pets, Skills.MINING),
             toolEfficiency   = toolEfficiency(equipped[EquipSlot.PICKAXE], EquipSlot.PICKAXE, oreData.levelRequired),
             petDropKey       = petKey,
@@ -292,12 +294,14 @@ class SkillsViewModel @Inject constructor(
         val levels: Map<String, Int>  = json.decodeFromString(player.skillLevels)
         val xpMap:  Map<String, Long> = json.decodeFromString(player.skillXp)
         val equipped: Map<String, String?> = json.decodeFromString(player.equipped)
+        val flags: PlayerFlags = json.decodeFromString(player.flags)
         val (petKey, petChance) = petDropParams(Skills.WOODCUTTING)
 
         SkillSimulator.simulateWoodcutting(
             treeData         = treeData,
             startXp          = xpMap[Skills.WOODCUTTING] ?: 0L,
             agilityLevel     = levels[Skills.AGILITY] ?: 1,
+            agilityPrestige  = flags.skillPrestige[Skills.AGILITY] ?: 0,
             petBoostPct      = petBoostFor(player.pets, Skills.WOODCUTTING),
             toolEfficiency   = toolEfficiency(equipped[EquipSlot.AXE], EquipSlot.AXE, treeData.levelRequired),
             petDropKey       = petKey,
@@ -310,12 +314,14 @@ class SkillsViewModel @Inject constructor(
             ?: throw IllegalArgumentException("Unknown course: $courseKey")
         val player  = playerRepo.getOrCreatePlayer()
         val levels: Map<String, Int> = json.decodeFromString(player.skillLevels)
+        val flags: PlayerFlags = json.decodeFromString(player.flags)
 
         SkillSimulator.simulateAgility(
-            courseData   = courseData,
-            startXp      = (json.decodeFromString<Map<String, Long>>(player.skillXp))[Skills.AGILITY] ?: 0L,
-            agilityLevel = levels[Skills.AGILITY] ?: 1,
-            petBoostPct  = petBoostFor(player.pets, Skills.AGILITY),
+            courseData      = courseData,
+            startXp         = (json.decodeFromString<Map<String, Long>>(player.skillXp))[Skills.AGILITY] ?: 0L,
+            agilityLevel    = levels[Skills.AGILITY] ?: 1,
+            agilityPrestige = flags.skillPrestige[Skills.AGILITY] ?: 0,
+            petBoostPct     = petBoostFor(player.pets, Skills.AGILITY),
         )
     }
 
@@ -566,6 +572,7 @@ class SkillsViewModel @Inject constructor(
         val levels: Map<String, Int>  = json.decodeFromString(player.skillLevels)
         val xpMap:  Map<String, Long> = json.decodeFromString(player.skillXp)
         val equipped: Map<String, String?> = json.decodeFromString(player.equipped)
+        val flags: PlayerFlags = json.decodeFromString(player.flags)
         val (petKey, petChance) = petDropParams(Skills.FISHING)
 
         SkillSimulator.simulateFishing(
@@ -573,6 +580,7 @@ class SkillsViewModel @Inject constructor(
             fishData         = fishData,
             startXp          = xpMap[Skills.FISHING] ?: 0L,
             agilityLevel     = levels[Skills.AGILITY] ?: 1,
+            agilityPrestige  = flags.skillPrestige[Skills.AGILITY] ?: 0,
             petBoostPct      = petBoostFor(player.pets, Skills.FISHING),
             rodEfficiency    = toolEfficiency(equipped[EquipSlot.FISHING_ROD], EquipSlot.FISHING_ROD, fishData.levelRequired),
             petDropKey       = petKey,
@@ -612,15 +620,17 @@ class SkillsViewModel @Inject constructor(
                 val player = playerRepo.getOrCreatePlayer()
                 val levels: Map<String, Int> = json.decodeFromString(player.skillLevels)
                 val xpMap: Map<String, Long> = json.decodeFromString(player.skillXp)
+                val flags: PlayerFlags = json.decodeFromString(player.flags)
                 val result = ThievingSimulator.simulate(
-                    npcKey         = npcKey,
-                    npc            = npc,
-                    startXp        = xpMap[Skills.THIEVING] ?: 0L,
-                    thievingLevel  = levels[Skills.THIEVING] ?: 1,
-                    agilityLevel   = levels[Skills.AGILITY] ?: 1,
-                    petBoostPct    = petBoostFor(player.pets, Skills.THIEVING),
-                    petDropKey     = petKey,
-                    petDropChance  = petChance,
+                    npcKey          = npcKey,
+                    npc             = npc,
+                    startXp         = xpMap[Skills.THIEVING] ?: 0L,
+                    thievingLevel   = levels[Skills.THIEVING] ?: 1,
+                    agilityLevel    = levels[Skills.AGILITY] ?: 1,
+                    agilityPrestige = flags.skillPrestige[Skills.AGILITY] ?: 0,
+                    petBoostPct     = petBoostFor(player.pets, Skills.THIEVING),
+                    petDropKey      = petKey,
+                    petDropChance   = petChance,
                 )
                 val framesJson = json.encodeToString(
                     json.serializersModule.serializer<List<SessionFrame>>(),
@@ -677,13 +687,14 @@ class SkillsViewModel @Inject constructor(
                 }
                 val petBoostedXp = if (petBoostPct > 0) (rawXp * (1.0 + petBoostPct / 100.0)).toLong() else rawXp
                 val estimatedXpGain = (petBoostedXp * xpQueueMult).toLong()
+                val agilityPrestige = gatherFlags.skillPrestige[Skills.AGILITY] ?: 0
                 val enqueued = playerRepo.enqueueAction(
                     QueuedAction(
                         skillName           = skillName,
                         activityKey         = activityKey,
                         skillDisplayName    = displayName,
                         estimatedXpGain     = estimatedXpGain,
-                        estimatedDurationMs = SkillSimulator.sessionDurationMs(agility),
+                        estimatedDurationMs = SkillSimulator.sessionDurationMs(agility, agilityPrestige),
                     )
                 )
                 _uiState.update {

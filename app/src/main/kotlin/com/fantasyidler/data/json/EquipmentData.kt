@@ -26,4 +26,5 @@ data class EquipmentData(
     @SerialName("farming_efficiency")     val farmingEfficiency: Float? = null,
     @SerialName("cape_skill")             val capeSkill: String? = null,
     @SerialName("cape_bonus")             val capeBonus: Float = 0f,
+    @SerialName("two_handed")             val twoHanded: Boolean = false,
 )

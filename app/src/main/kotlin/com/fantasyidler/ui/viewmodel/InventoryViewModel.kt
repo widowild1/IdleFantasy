@@ -160,7 +160,8 @@ class InventoryViewModel @Inject constructor(
 
     fun equip(itemKey: String, slot: String) {
         viewModelScope.launch {
-            val requirements = gameData.equipment[itemKey]?.requirements ?: emptyMap()
+            val itemData     = gameData.equipment[itemKey]
+            val requirements = itemData?.requirements ?: emptyMap()
             val skillLevels  = uiState.value.skillLevels
             val unmetReqs = requirements.entries.filter { (skill, lvl) -> (skillLevels[skill] ?: 1) < lvl }
             if (unmetReqs.isNotEmpty()) {
@@ -172,6 +173,16 @@ class InventoryViewModel @Inject constructor(
             }
             val current = playerRepo.getEquipped().toMutableMap()
             current[slot] = itemKey
+            if (slot in EquipSlot.WEAPON_SLOTS && itemData?.twoHanded == true) {
+                current[EquipSlot.SHIELD] = null
+            } else if (slot == EquipSlot.SHIELD) {
+                for (weaponSlot in EquipSlot.WEAPON_SLOTS) {
+                    val equipped = current[weaponSlot]
+                    if (equipped != null && gameData.equipment[equipped]?.twoHanded == true) {
+                        current[weaponSlot] = null
+                    }
+                }
+            }
             playerRepo.updateEquipped(current)
             _extra.update { it.copy(pickingSlot = null) }
         }

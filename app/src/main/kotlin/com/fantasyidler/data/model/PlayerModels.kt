@@ -128,6 +128,18 @@ data class PlayerFlags(
     @SerialName("seen_item_keys") val seenItemKeys: Set<String> = emptySet(),
     /** Last run stats per dungeon key (food consumed, kills, survived). */
     @SerialName("dungeon_last_run_stats") val dungeonLastRunStats: Map<String, DungeonRunStats> = emptyMap(),
+    /** Infinite Tower: current floor of the active run (0 = not started). */
+    @SerialName("tower_current_floor") val towerCurrentFloor: Int = 0,
+    /** Infinite Tower: highest floor ever reached. */
+    @SerialName("tower_best_floor") val towerBestFloor: Int = 0,
+    /** Infinite Tower: list of milestone floor numbers already claimed. */
+    @SerialName("tower_milestones") val towerMilestonesClaimed: List<Int> = emptyList(),
+    /** Infinite Tower: cumulative XP bonus % from milestones. */
+    @SerialName("tower_xp_bonus_pct") val towerXpBonusPct: Int = 0,
+    /** Infinite Tower: cumulative max HP bonus from milestones. */
+    @SerialName("tower_hp_bonus") val towerHpBonus: Int = 0,
+    /** Infinite Tower: cumulative coin drop bonus % from milestones. */
+    @SerialName("tower_coin_bonus_pct") val towerCoinBonusPct: Int = 0,
 )
 
 /** Stats saved after each dungeon run; keyed by dungeon name in PlayerFlags. */

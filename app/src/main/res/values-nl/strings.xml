@@ -1085,11 +1085,23 @@
     <string name="achievement_town_first_upgrade_name">Eerste Renovatie</string>
     <string name="achievement_town_first_upgrade_desc">Verbeter een stadsgebouw voor de eerste keer</string>
     <string name="achievement_town_all_tier1_name">Stadsverbeteraar</string>
-    <string name="achievement_town_all_tier1_desc">Verbeter alle drie stadsgebouwen naar minimaal Rang 1</string>
+    <string name="achievement_town_all_tier1_desc">Verbeter alle vier stadsgebouwen naar minimaal Rang 1</string>
     <string name="achievement_town_one_maxed_name">Meesterbouwer</string>
     <string name="achievement_town_one_maxed_desc">Verbeter een stadsgebouw naar het maximum</string>
     <string name="achievement_town_all_maxed_name">Legendarische Stad</string>
-    <string name="achievement_town_all_maxed_desc">Verbeter alle drie stadsgebouwen naar het maximum</string>
+    <string name="achievement_town_all_maxed_desc">Verbeter alle vier stadsgebouwen naar het maximum</string>
+    <string name="achievement_tower_first_floor_name">First Step</string>
+    <string name="achievement_tower_first_floor_desc">Clear your first Infinite Tower floor</string>
+    <string name="achievement_tower_floor_10_name">Tower Initiate</string>
+    <string name="achievement_tower_floor_10_desc">Reach floor 10 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_50_name">Climbing Higher</string>
+    <string name="achievement_tower_floor_50_desc">Reach floor 50 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_100_name">Century Climber</string>
+    <string name="achievement_tower_floor_100_desc">Reach floor 100 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_250_name">Void Conqueror</string>
+    <string name="achievement_tower_floor_250_desc">Reach floor 250 in the Infinite Tower</string>
+    <string name="achievement_tower_all_milestones_name">Tower Legend</string>
+    <string name="achievement_tower_all_milestones_desc">Claim all 25 tower milestones</string>
     <string name="builder_title">Bouwersatelier</string>
     <string name="builder_card_desc">Verbeter de Herberg, Gildehuis en Kerk</string>
 
@@ -1393,4 +1405,21 @@
     <string name="boss_kraken_desc">De schrik van de diepzee, een kolossaal zeemonster.</string>
     <string name="boss_balrog_desc">Een oeroude demon van vlam en schaduw, ontwaakt uit zijn sluimer diep onder de aarde.</string>
     <string name="boss_void_sovereign_desc">De oorspronkelijke entiteit achter de leemtescheuren. Onmetelijk oud, bekijkt sterfelijke uitdagers met minachting.</string>
+
+    <!-- ===== Infinite Tower ===== -->
+    <string name="tower_title">Infinite Tower</string>
+    <string name="tower_floor_label">Floor %d</string>
+    <string name="tower_best_floor">Best: Floor %d</string>
+    <string name="tower_start_btn">Attempt Floor %d</string>
+    <string name="tower_milestones">Milestones</string>
+    <string name="tower_floor_cleared">Floor %d cleared!</string>
+    <string name="tower_new_best">New best: Floor %d!</string>
+    <string name="tower_death_reset">You fell on floor %d. Resetting to floor 1.</string>
+    <string name="tower_milestone_claim">Claim</string>
+    <string name="tower_milestone_claimed">Claimed</string>
+    <string name="tower_enemies_this_floor">Enemies</string>
+    <string name="tower_enemy_strength">Enemy strength: %s%%</string>
+    <string name="tower_entry_card_desc">Endless floors. How far can you climb?</string>
+    <string name="tower_collect_prompt">Collect your tower run</string>
+    <string name="tower_home_collect_hint">Open the Tower screen to collect this run</string>
 </resources>

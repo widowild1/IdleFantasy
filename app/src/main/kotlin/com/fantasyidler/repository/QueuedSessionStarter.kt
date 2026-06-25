@@ -540,7 +540,7 @@ class QueuedSessionStarter @Inject constructor(
                 )
                 val totalKills = result.frames.sumOf { it.kills }
                 if (combatStyle == "magic" && spell != null && totalKills > 0) {
-                    val staffCoversRune = weapon?.infiniteRunes == spell.runeType
+                    val staffCoversRune = weapon?.infiniteRunes == "all" || weapon?.infiniteRunes == spell.runeType
                     if (!staffCoversRune)
                         playerRepo.consumeItems(mapOf(spell.runeType to totalKills * spell.runeCost))
                 }

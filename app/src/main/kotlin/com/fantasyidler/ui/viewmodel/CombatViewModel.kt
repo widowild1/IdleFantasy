@@ -100,6 +100,7 @@ data class CombatUiState(
     val dungeonLastRunStats: Map<String, DungeonRunStats> = emptyMap(),
     val unlockedDungeons: List<String> = emptyList(),
     val skillPrestige: Map<String, Int> = emptyMap(),
+    val towerBestFloor: Int = 0,
 )
 
 // ---------------------------------------------------------------------------
@@ -223,6 +224,7 @@ class CombatViewModel @Inject constructor(
                 unlockedDungeons        = flags.unlockedDungeons,
                 selectedArrowKey        = if (extra.selectedArrowKey == null) flags.equippedArrows else extra.selectedArrowKey,
                 skillPrestige           = flags.skillPrestige,
+                towerBestFloor          = flags.towerBestFloor,
                 selectedSpell           = if (extra.selectedSpell == null) flags.activeSpell?.let { gameData.spells[it] } else extra.selectedSpell,
                 selectedPotionKey       = if (extra.selectedPotionKey == null) flags.activePotionKey?.takeIf { (inventory[it] ?: 0) > 0 } else extra.selectedPotionKey,
             )
@@ -446,7 +448,7 @@ class CombatViewModel @Inject constructor(
                 val availableArrows = if (bestArrow != null) mapOf(bestArrow to (inventory[bestArrow] ?: 0)) else emptyMap()
 
                 // Runes: determine key and cost for simulator tracking; consumed upfront below
-                val staffCoversRune = combatStyle == "magic" && selectedSpell != null && weapon?.infiniteRunes == selectedSpell.runeType
+                val staffCoversRune = combatStyle == "magic" && selectedSpell != null && (weapon?.infiniteRunes == "all" || weapon?.infiniteRunes == selectedSpell.runeType)
                 val simulatorRuneKey  = if (combatStyle == "magic" && selectedSpell != null && !staffCoversRune) selectedSpell.runeType else null
                 val simulatorRuneCost = selectedSpell?.runeCost ?: 1
 
@@ -612,7 +614,7 @@ class CombatViewModel @Inject constructor(
                 val arrowStrengthBonus = bestArrow?.let { ARROW_STRENGTH_BONUS[it] } ?: 0
                 val availableArrows = if (bestArrow != null) mapOf(bestArrow to (inventory[bestArrow] ?: 0)) else emptyMap()
 
-                val bossStaffCoversRune = combatStyle == "magic" && selectedSpell != null && bossWeapon?.infiniteRunes == selectedSpell.runeType
+                val bossStaffCoversRune = combatStyle == "magic" && selectedSpell != null && (bossWeapon?.infiniteRunes == "all" || bossWeapon?.infiniteRunes == selectedSpell.runeType)
                 val bossRuneKey  = if (combatStyle == "magic" && selectedSpell != null && !bossStaffCoversRune) selectedSpell.runeType else null
                 val bossRuneCost = selectedSpell?.runeCost ?: 1
 

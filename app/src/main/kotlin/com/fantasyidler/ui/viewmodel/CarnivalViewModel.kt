@@ -363,20 +363,24 @@ class CarnivalViewModel @Inject constructor(
         if (_extra.value.itemAppraisalState !is ActiveGameState.Ready) return
         val diff = _extra.value.itemAppraisalDifficulty
         if (diff == Difficulty.HARD) {
-            val idx = Random.nextInt(APPRAISAL_QUADS.size)
+            val raw = APPRAISAL_QUADS[Random.nextInt(APPRAISAL_QUADS.size)]
+            val shuffled = raw.items.shuffled()
+            val quad = raw.copy(items = shuffled, correctIdx = shuffled.indexOf(raw.items[raw.correctIdx]))
             _extra.update {
                 it.copy(
-                    itemAppraisalState   = ActiveGameState.AppraisalPlaying(idx),
-                    currentAppraisalQuad = APPRAISAL_QUADS[idx],
+                    itemAppraisalState   = ActiveGameState.AppraisalPlaying(quad.correctIdx),
+                    currentAppraisalQuad = quad,
                     currentAppraisalPair = null,
                 )
             }
         } else {
-            val idx = Random.nextInt(APPRAISAL_PAIRS.size)
+            val raw = APPRAISAL_PAIRS[Random.nextInt(APPRAISAL_PAIRS.size)]
+            val pair = if (Random.nextBoolean()) raw
+                       else AppraisalPair(raw.itemB, raw.itemA, !raw.correctIsA)
             _extra.update {
                 it.copy(
-                    itemAppraisalState   = ActiveGameState.AppraisalPlaying(idx),
-                    currentAppraisalPair = APPRAISAL_PAIRS[idx],
+                    itemAppraisalState   = ActiveGameState.AppraisalPlaying(if (pair.correctIsA) 0 else 1),
+                    currentAppraisalPair = pair,
                     currentAppraisalQuad = null,
                 )
             }

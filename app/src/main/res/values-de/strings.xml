@@ -1095,11 +1095,23 @@
     <string name="achievement_town_first_upgrade_name">Erste Renovierung</string>
     <string name="achievement_town_first_upgrade_desc">Baue ein Stadtgebäude zum ersten Mal aus</string>
     <string name="achievement_town_all_tier1_name">Stadtverbesserer</string>
-    <string name="achievement_town_all_tier1_desc">Baue alle drei Stadtgebäude auf mindestens Stufe 1 aus</string>
+    <string name="achievement_town_all_tier1_desc">Baue alle vier Stadtgebäude auf mindestens Stufe 1 aus</string>
     <string name="achievement_town_one_maxed_name">Meisterbaumeister</string>
     <string name="achievement_town_one_maxed_desc">Baue ein Stadtgebäude auf die maximale Stufe aus</string>
     <string name="achievement_town_all_maxed_name">Stadt der Legenden</string>
-    <string name="achievement_town_all_maxed_desc">Baue alle drei Stadtgebäude auf die maximale Stufe aus</string>
+    <string name="achievement_town_all_maxed_desc">Baue alle vier Stadtgebäude auf die maximale Stufe aus</string>
+    <string name="achievement_tower_first_floor_name">First Step</string>
+    <string name="achievement_tower_first_floor_desc">Clear your first Infinite Tower floor</string>
+    <string name="achievement_tower_floor_10_name">Tower Initiate</string>
+    <string name="achievement_tower_floor_10_desc">Reach floor 10 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_50_name">Climbing Higher</string>
+    <string name="achievement_tower_floor_50_desc">Reach floor 50 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_100_name">Century Climber</string>
+    <string name="achievement_tower_floor_100_desc">Reach floor 100 in the Infinite Tower</string>
+    <string name="achievement_tower_floor_250_name">Void Conqueror</string>
+    <string name="achievement_tower_floor_250_desc">Reach floor 250 in the Infinite Tower</string>
+    <string name="achievement_tower_all_milestones_name">Tower Legend</string>
+    <string name="achievement_tower_all_milestones_desc">Claim all 25 tower milestones</string>
 
 
 
@@ -1331,4 +1343,21 @@
     <string name="boss_kraken_desc">Der Schrecken der Tiefsee, ein kolossales Seeungeheuer.</string>
     <string name="boss_balrog_desc">Ein uralter Dämon aus Flamme und Schatten, erwacht aus seinem Schlaf tief unter der Erde.</string>
     <string name="boss_void_sovereign_desc">Die ursprüngliche Entität hinter den Leerenrissen. Unermesslich alt, betrachtet sie sterbliche Herausforderer mit Verachtung.</string>
+
+    <!-- ===== Infinite Tower ===== -->
+    <string name="tower_title">Infinite Tower</string>
+    <string name="tower_floor_label">Floor %d</string>
+    <string name="tower_best_floor">Best: Floor %d</string>
+    <string name="tower_start_btn">Attempt Floor %d</string>
+    <string name="tower_milestones">Milestones</string>
+    <string name="tower_floor_cleared">Floor %d cleared!</string>
+    <string name="tower_new_best">New best: Floor %d!</string>
+    <string name="tower_death_reset">You fell on floor %d. Resetting to floor 1.</string>
+    <string name="tower_milestone_claim">Claim</string>
+    <string name="tower_milestone_claimed">Claimed</string>
+    <string name="tower_enemies_this_floor">Enemies</string>
+    <string name="tower_enemy_strength">Enemy strength: %s%%</string>
+    <string name="tower_entry_card_desc">Endless floors. How far can you climb?</string>
+    <string name="tower_collect_prompt">Collect your tower run</string>
+    <string name="tower_home_collect_hint">Open the Tower screen to collect this run</string>
 </resources>

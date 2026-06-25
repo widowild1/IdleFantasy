@@ -103,7 +103,7 @@ class AchievementsViewModel @Inject constructor(
         )
 
         val townTiers = flags.townBuildingTiers
-        val allBuildingKeys = listOf("inn", "guild_hall", "church")
+        val allBuildingKeys = listOf("inn", "guild_hall", "church", "fairgrounds")
         groups["Town"] = listOf(
             ach("town_first_upgrade", R.string.achievement_town_first_upgrade_name, R.string.achievement_town_first_upgrade_desc, "🏗️",
                 allBuildingKeys.any { (townTiers[it] ?: 0) >= 1 }),
@@ -113,6 +113,15 @@ class AchievementsViewModel @Inject constructor(
                 allBuildingKeys.any { (townTiers[it] ?: 0) >= 3 }),
             ach("town_all_maxed", R.string.achievement_town_all_maxed_name, R.string.achievement_town_all_maxed_desc, "👑",
                 allBuildingKeys.all { (townTiers[it] ?: 0) >= 3 }),
+        )
+
+        groups["Tower"] = listOf(
+            ach("tower_first_floor",      R.string.achievement_tower_first_floor_name,      R.string.achievement_tower_first_floor_desc,      "🗼", flags.towerBestFloor >= 1),
+            ach("tower_floor_10",         R.string.achievement_tower_floor_10_name,         R.string.achievement_tower_floor_10_desc,         "🗼", flags.towerBestFloor >= 10),
+            ach("tower_floor_50",         R.string.achievement_tower_floor_50_name,         R.string.achievement_tower_floor_50_desc,         "🗼", flags.towerBestFloor >= 50),
+            ach("tower_floor_100",        R.string.achievement_tower_floor_100_name,        R.string.achievement_tower_floor_100_desc,        "🏆", flags.towerBestFloor >= 100),
+            ach("tower_floor_250",        R.string.achievement_tower_floor_250_name,        R.string.achievement_tower_floor_250_desc,        "👑", flags.towerBestFloor >= 250),
+            ach("tower_all_milestones",   R.string.achievement_tower_all_milestones_name,   R.string.achievement_tower_all_milestones_desc,   "🌟", flags.towerMilestonesClaimed.size >= 25),
         )
 
         val all = groups.values.flatten()

@@ -152,6 +152,12 @@ sealed class Screen(
         icon     = Icons.Filled.Celebration,
     )
 
+    object Tower : Screen(
+        route    = "tower",
+        labelRes = R.string.tower_title,
+        icon     = Icons.Filled.Star,
+    )
+
     companion object {
         val bottomNavItems = listOf(Skills, Combat, Home, Quests, Profile)
     }

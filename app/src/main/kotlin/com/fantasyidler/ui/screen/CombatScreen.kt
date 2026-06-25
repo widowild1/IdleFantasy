@@ -112,9 +112,10 @@ private fun xpBreakdownText(total: Long, bonus: Long, boostWasActive: Boolean): 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CombatScreen(
-    viewModel:    CombatViewModel    = hiltViewModel(),
-    inventoryVm:  InventoryViewModel = hiltViewModel(),
-    startOnGear:  Boolean            = false,
+    viewModel:          CombatViewModel    = hiltViewModel(),
+    inventoryVm:        InventoryViewModel = hiltViewModel(),
+    startOnGear:        Boolean            = false,
+    onNavigateToTower:  () -> Unit         = {},
 ) {
     val state            by viewModel.uiState.collectAsState()
     val invState         by inventoryVm.uiState.collectAsState()
@@ -223,8 +224,10 @@ fun CombatScreen(
                             dungeonRuns         = state.dungeonRuns,
                             dungeonLastRunStats = state.dungeonLastRunStats,
                             unlockedDungeons    = state.unlockedDungeons,
+                            towerBestFloor      = state.towerBestFloor,
                             onDungeon           = viewModel::selectDungeon,
                             onBoss              = viewModel::selectBoss,
+                            onTower             = onNavigateToTower,
                         )
                         2 -> CombatGearTab(
                             equipped       = invState.equipped,
@@ -283,8 +286,10 @@ fun CombatScreen(
                             dungeonRuns         = state.dungeonRuns,
                             dungeonLastRunStats = state.dungeonLastRunStats,
                             unlockedDungeons    = state.unlockedDungeons,
+                            towerBestFloor      = state.towerBestFloor,
                             onDungeon           = viewModel::selectDungeon,
                             onBoss              = viewModel::selectBoss,
+                            onTower             = onNavigateToTower,
                         )
                         1 -> CombatGearTab(
                             equipped       = invState.equipped,
@@ -446,14 +451,17 @@ private fun CombatSelectionList(
     dungeonRuns: Map<String, Int> = emptyMap(),
     dungeonLastRunStats: Map<String, com.fantasyidler.data.model.DungeonRunStats> = emptyMap(),
     unlockedDungeons: List<String> = emptyList(),
+    towerBestFloor: Int = 0,
     modifier: Modifier = Modifier,
     onDungeon: (DungeonData) -> Unit,
     onBoss: (BossData) -> Unit,
+    onTower: () -> Unit = {},
 ) {
     val combatLvl = combatLevel(skillLevels)
 
     LazyColumn(modifier.fillMaxSize()) {
         item { CombatSectionHeader(stringResource(R.string.label_dungeons_tab)) }
+        item { TowerEntryRow(bestFloor = towerBestFloor, onTap = onTower) }
         items(dungeons) { dungeon ->
             val unlocked = if (dungeon.loreUnlockOnly) {
                 unlockedDungeons.contains(dungeon.name)
@@ -826,6 +834,52 @@ private fun BossRow(
             fontWeight = FontWeight.SemiBold,
             color      = if (unlocked) GoldPrimary else dimColor,
         )
+    }
+    HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
+}
+
+@Composable
+private fun TowerEntryRow(
+    bestFloor: Int,
+    onTap: () -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onTap)
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Box(
+            modifier         = Modifier.size(36.dp),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(text = "🏰", style = MaterialTheme.typography.titleLarge)
+        }
+        Spacer(Modifier.width(8.dp))
+        Column(Modifier.weight(1f)) {
+            Text(
+                text       = stringResource(R.string.tower_title),
+                style      = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Medium,
+            )
+            Text(
+                text     = stringResource(R.string.tower_entry_card_desc),
+                style    = MaterialTheme.typography.bodySmall,
+                color    = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
+        }
+        if (bestFloor > 0) {
+            Spacer(Modifier.width(12.dp))
+            Text(
+                text       = stringResource(R.string.tower_best_floor, bestFloor),
+                style      = MaterialTheme.typography.labelMedium,
+                fontWeight = FontWeight.SemiBold,
+                color      = GoldPrimary,
+            )
+        }
     }
     HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
 }
@@ -1641,6 +1695,7 @@ private fun DungeonInfoSheet(
                 var onlyCastable by remember { mutableStateOf(true) }
                 val displaySpells = if (onlyCastable)
                     availableSpells.filter { spell ->
+                        equippedWeapon?.infiniteRunes == "all" ||
                         equippedWeapon?.infiniteRunes == spell.runeType ||
                         (inventory[spell.runeType] ?: 0) >= spell.runeCost
                     }
@@ -1675,7 +1730,7 @@ private fun DungeonInfoSheet(
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
-                            val infinite = equippedWeapon?.infiniteRunes == spell.runeType
+                            val infinite = equippedWeapon?.infiniteRunes == "all" || equippedWeapon?.infiniteRunes == spell.runeType
                             if (!infinite) {
                                 val held = inventory[spell.runeType] ?: 0
                                 Text(
@@ -1987,6 +2042,7 @@ private fun BossInfoSheet(
                 var onlyCastable by remember { mutableStateOf(true) }
                 val displaySpells = if (onlyCastable)
                     availableSpells.filter { spell ->
+                        equippedWeapon?.infiniteRunes == "all" ||
                         equippedWeapon?.infiniteRunes == spell.runeType ||
                         (inventory[spell.runeType] ?: 0) >= spell.runeCost
                     }
@@ -2020,7 +2076,7 @@ private fun BossInfoSheet(
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                             )
-                            val infinite = equippedWeapon?.infiniteRunes == spell.runeType
+                            val infinite = equippedWeapon?.infiniteRunes == "all" || equippedWeapon?.infiniteRunes == spell.runeType
                             if (!infinite) {
                                 val held = inventory[spell.runeType] ?: 0
                                 Text(

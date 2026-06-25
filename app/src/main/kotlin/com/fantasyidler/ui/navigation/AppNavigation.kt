@@ -37,6 +37,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.fantasyidler.notification.SessionNotificationManager
 import com.fantasyidler.ui.screen.BoneAltarScreen
 import com.fantasyidler.ui.screen.CarnivalScreen
+import com.fantasyidler.ui.screen.TowerScreen
 import com.fantasyidler.ui.screen.ChurchScreen
 import com.fantasyidler.ui.screen.BuilderScreen
 import com.fantasyidler.ui.screen.CombatScreen
@@ -178,7 +179,7 @@ fun AppNavigation(
             composable(Screen.Farming.route) { entry ->
                 FarmingScreen(onBack = { if (navController.currentBackStackEntry == entry) navController.popBackStack() })
             }
-            composable(Screen.Combat.route)   { CombatScreen() }
+            composable(Screen.Combat.route)   { CombatScreen(onNavigateToTower = { navController.navigate(Screen.Tower.route) }) }
             composable(Screen.Home.route)     {
                 HomeScreen(
                     onNavigateToSettings     = { navController.navigate(Screen.Settings.route) },
@@ -256,6 +257,11 @@ fun AppNavigation(
             }
             composable(Screen.Carnival.route) { entry ->
                 CarnivalScreen(
+                    onBack = { if (navController.currentBackStackEntry == entry) navController.popBackStack() },
+                )
+            }
+            composable(Screen.Tower.route) { entry ->
+                TowerScreen(
                     onBack = { if (navController.currentBackStackEntry == entry) navController.popBackStack() },
                 )
             }

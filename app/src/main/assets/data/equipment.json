@@ -3529,5 +3529,132 @@
     "strength_bonus": 0,
     "defense_bonus": 5,
     "requirements": {}
+  },
+  "tower_ring": {
+    "name": "tower_ring",
+    "display_name": "Tower Ring",
+    "slot": "ring",
+    "description": "A band forged from the stone of the infinite tower.",
+    "attack_bonus": 5,
+    "strength_bonus": 3,
+    "defense_bonus": 0,
+    "requirements": {
+      "attack": 30
+    }
+  },
+  "tower_shield": {
+    "name": "tower_shield",
+    "display_name": "Tower Shield",
+    "slot": "shield",
+    "description": "A massive shield hewn from tower stone.",
+    "attack_bonus": 0,
+    "strength_bonus": 0,
+    "defense_bonus": 18,
+    "requirements": {
+      "defense": 50
+    }
+  },
+  "tower_amulet": {
+    "name": "tower_amulet",
+    "display_name": "Tower Amulet",
+    "slot": "necklace",
+    "description": "An amulet pulsing with the tower's ancient power.",
+    "attack_bonus": 5,
+    "strength_bonus": 8,
+    "defense_bonus": 0,
+    "requirements": {
+      "attack": 50
+    }
+  },
+  "tower_helm": {
+    "name": "tower_helm",
+    "display_name": "Tower Helm",
+    "slot": "head",
+    "description": "A helmet carved from the tower's upper floors.",
+    "attack_bonus": 0,
+    "strength_bonus": 4,
+    "defense_bonus": 14,
+    "requirements": {
+      "defense": 60
+    }
+  },
+  "tower_body": {
+    "name": "tower_body",
+    "display_name": "Tower Plate",
+    "slot": "body",
+    "description": "Impenetrable armour from the tower's inner sanctum.",
+    "attack_bonus": 0,
+    "strength_bonus": 0,
+    "defense_bonus": 28,
+    "requirements": {
+      "defense": 70
+    }
+  },
+  "tower_legs": {
+    "name": "tower_legs",
+    "display_name": "Tower Greaves",
+    "slot": "legs",
+    "description": "Greaves forged in the tower's deepest forge.",
+    "attack_bonus": 0,
+    "strength_bonus": 0,
+    "defense_bonus": 22,
+    "requirements": {
+      "defense": 70
+    }
+  },
+  "tower_sword": {
+    "name": "tower_sword",
+    "display_name": "Tower Sword",
+    "slot": "weapon",
+    "combat_style": "attack",
+    "description": "A blade that has cleaved through countless tower floors.",
+    "attack_bonus": 28,
+    "strength_bonus": 22,
+    "defense_bonus": 0,
+    "requirements": {
+      "attack": 70
+    }
+  },
+  "tower_crossbow": {
+    "name": "tower_crossbow",
+    "display_name": "Tower Crossbow",
+    "slot": "weapon",
+    "combat_style": "ranged",
+    "description": "A precision crossbow wrought from tower metal.",
+    "attack_bonus": 0,
+    "strength_bonus": 0,
+    "defense_bonus": 0,
+    "ranged_attack_bonus": 28,
+    "requirements": {
+      "ranged": 70
+    }
+  },
+  "tower_cape": {
+    "name": "tower_cape",
+    "display_name": "Tower Cape",
+    "slot": "cape",
+    "description": "A flowing cape that radiates the tower's energy.",
+    "attack_bonus": 6,
+    "strength_bonus": 6,
+    "defense_bonus": 6,
+    "requirements": {
+      "attack": 70
+    }
+  },
+  "void_staff": {
+    "name": "void_staff",
+    "display_name": "Void Staff",
+    "slot": "weapon",
+    "combat_style": "magic",
+    "description": "A staff of pure void energy. Grants infinite runes for all spells.",
+    "attack_bonus": 0,
+    "strength_bonus": 0,
+    "defense_bonus": 0,
+    "magic_attack_bonus": 30,
+    "magic_damage_bonus": 8,
+    "infinite_runes": "all",
+    "requirements": {
+      "magic": 75
+    }
   }
 }

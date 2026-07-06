@@ -163,7 +163,7 @@ class SettingsViewModel @Inject constructor(
                     sessionRepo.getActiveWorkerSession(slot)?.let { add(it.toExport()) }
                     addAll(sessionRepo.getAllCompletedWorkerSessions(slot).map { it.toExport() })
                 }
-            }
+            }.distinctBy { it.sessionId }
             onReady(playerRepo.exportSave(sessions))
         }
     }
@@ -183,7 +183,11 @@ class SettingsViewModel @Inject constructor(
                         val remainingMs = (s.endsAt - exportedAt).coerceAtLeast(0L)
                         s.toSkillSession().copy(endsAt = now + remainingMs)
                     }
-                    sessionRepo.insertSession(session)
+                    try {
+                        sessionRepo.insertSession(session)
+                    } catch (_: Exception) {
+                        // A duplicate/bad session in an old export file shouldn't abort the whole restore.
+                    }
                 }
                 sessionRepo.recoverActiveSession(queuedSessionStarter)
                 sessionRepo.recoverActiveWorkerSession(1, workerStarter)

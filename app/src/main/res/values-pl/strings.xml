@@ -975,7 +975,7 @@
     <string name="slayer_already_owned">Już posiadane.</string>
     <string name="slayer_purchased">Dodano do ekwipunku.</string>
     <string name="slayer_owned">Posiadane</string>
-    <string name="slayer_lamp_purchased">Dodano XP do %1$s!</string>
+    <string name="slayer_lamp_purchased">+%1$s XP dodano do %2$s!</string>
     <string name="slayer_lamp_pick_skill">Wybierz umiejętność</string>
     <string name="slayer_lamp_small">Lampa XP (Mała)</string>
     <string name="slayer_lamp_large">Lampa XP (Duża)</string>
@@ -1327,7 +1327,7 @@
     <string name="carnival_appraisal_wrong">Źle! Cenniejszym przedmiotem był %1$s.</string>
     <string name="carnival_redeemed">Wymieniono: %1$s!</string>
     <string name="carnival_not_enough_tickets">Za mało biletów.</string>
-    <string name="carnival_lamp_redeemed">+%1$d XP w %2$s!</string>
+    <string name="carnival_lamp_redeemed">+%1$s XP w %2$s!</string>
     <string name="carnival_shell_game">Pod Którym Kubkiem</string>
     <string name="carnival_active_shell_desc">Obserwuj, pod którym kubkiem jest klejnot, a następnie wybierz go po przetasowaniu!</string>
     <string name="carnival_shell_showing">Obserwuj uważnie — klejnot jest pod kubkiem %1$d</string>
@@ -1398,6 +1398,7 @@
     <string name="armory_stat_ranged_str">Siła strzału</string>
     <string name="armory_stat_magic_atk">Atak magiczny</string>
     <string name="armory_stat_magic_dmg">Obrażenia magiczne</string>
+    <string name="armory_stat_attack_speed">Szybkość ataku</string>
     <string name="armory_stat_cape">Bonus XP</string>
     <string name="armory_stat_cape_yield">Bonus wydajności</string>
     <string name="armory_source_carnival">Sklep z nagrodami Karnawału</string>
@@ -1460,6 +1461,8 @@
     <string name="snackbar_added_to_queue">Dodano do kolejki: %1$s.</string>
     <string name="snackbar_queue_full">Kolejka jest pełna.</string>
     <string name="combat_start_failed">Nie udało się rozpocząć: %1$s</string>
+    <string name="skill_session_voided_prestige">Twój poziom %1$s nie spełnia już wymagań tej sesji (prawdopodobnie z powodu prestiżu) — nagrody zostały unieważnione, a użyte materiały zwrócone.</string>
+    <string name="combat_session_voided_prestige">Twój poziom walki nie spełnia już wymagań tego starcia (prawdopodobnie z powodu prestiżu) — nagrody zostały unieważnione.</string>
     <string name="combat_select_spell">Wybierz zaklęcie przed wejściem.</string>
     <string name="combat_spell_level_required">Wymagana Magia %1$d dla %2$s.</string>
     <string name="guild_daily_reward_claimed">Odebrano dzienną nagrodę!</string>
